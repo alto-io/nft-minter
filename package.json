@@ -1,10 +1,10 @@
 {
-  "name": "game3.js",
+  "name": "nft-minter",
   "version": "0.0.1",
   "private": true,
   "repository": {
     "type": "git",
-    "url": "https://github.com/alto-io/game3.js"
+    "url": "https://github.com/polats/nft-minter"
   },
   "author": {
     "name": "Paul Gadi",
@@ -19,6 +19,8 @@
     "node": ">=0.12"
   },
   "scripts": {
+    "demo": "yarn ipfs:deploy:erc1155 && yarn sol:deploy:rinkeby:reset && yarn mint:erc1155",
+    "ipfs:deploy:erc1155": "node scripts/erc1155_deploy_to_ipfs.js",
     "redeploy": "yarn clean:ipfs && yarn sol:deploy",
     "sol:compile": "truffle compile --config truffle-config.js",
     "sol:deploy": "truffle migrate --reset --compile-all",
@@ -40,17 +42,25 @@
     "build:move": "mv ./packages/client/build ./packages/server/build/public",
     "build": "yarn sol:compile && yarn build:common && yarn build:client && yarn build:server && yarn build:move",
     "serve": "yarn workspace @game3js/server serve",
-    "postinstall": "rimraf node_modules/@types/react-native"
+    "postinstall": "rimraf node_modules/@types/react-native",
+    "chain:up": "newsh \"dotenv -e .env -- docker-compose up\"",
+    "chain:down": "docker-compose down -v",
+    "test": "npm run chain:up && (sleep 1 && truffle test && npm run chain:down)",
+    "test:rinkeby": "truffle test --network rinkeby"
   },
   "dependencies": {
-    "@openzeppelin/contracts": "^3.1.0",
+    "@openzeppelin/contracts": "2.5.0",
+    "multi-token-standard": "github:ProjectOpenSea/multi-token-standard",
+    "openzeppelin-solidity": "2.1.3",
     "concurrently": "^4.1.1",
     "dotenv": "^8.2.0",
+    "dotenv-cli": "^4.0.0",
     "react-device-detect": "^1.13.1",
     "truffle": "^5.0.2",
     "truffle-flattener": "^1.3.0",
     "truffle-hdwallet-provider": "^1.0.17",
-    "tslint": "^5.19.0"
+    "tslint": "^5.19.0",
+    "wighawag_newsh": "0.0.6"
   },
   "resolutions": {
     "cids/multicodec": "1.0.1",
