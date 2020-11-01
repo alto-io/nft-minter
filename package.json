@@ -40,7 +40,7 @@
     "build:client": "yarn workspace @nft-minter/client build",
     "build:server": "yarn workspace @nft-minter/server build",
     "build:move": "mv ./packages/client/build ./packages/server/build/public",
-    "build": "yarn sol:compile && yarn build:common && yarn build:client && yarn build:server && yarn build:move",
+    "build": "yarn build:client && yarn build:server && yarn build:move",
     "serve": "yarn workspace @nft-minter/server serve",
     "postinstall": "rimraf node_modules/@types/react-native",
     "chain:up": "newsh \"dotenv -e .env -- docker-compose up\"",
