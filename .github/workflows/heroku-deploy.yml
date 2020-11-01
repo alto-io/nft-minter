@@ -3,7 +3,7 @@ name: Deploy to nft-minter.herokuapp.com
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   build:
