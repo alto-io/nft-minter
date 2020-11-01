@@ -30,7 +30,7 @@ ENV REACT_APP_NETWORK_ID=4
 # RUN yarn sol:deploy-rinkeby
 
 # Build
-RUN yarn build:server
+RUN yarn build
 
 # Port
 EXPOSE 3001
