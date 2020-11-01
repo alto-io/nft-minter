@@ -4,6 +4,9 @@ WORKDIR /usr/src/app
 
 # Dependencies
 COPY ./package.json .
+COPY ./yarn.lock .
+COPY ./packages/client/package.json ./packages/client/
+COPY ./packages/server/package.json ./packages/server/
 
 # --no-cache: download package index on-the-fly, no need to cleanup afterwards
 # --virtual: bundle packages, remove whole bundle at once, when done
@@ -21,16 +24,16 @@ COPY . .
 ENV REACT_APP_NETWORK_ID=4
 
 # Test contract on local chain
-RUN yarn test:rinkeby
+# RUN yarn test:rinkeby
 
 # Deploy smart contracts
 # RUN yarn sol:deploy-rinkeby
 
 # Build
-# RUN yarn build
+RUN yarn build:server
 
 # Port
-# EXPOSE 3001
+EXPOSE 3001
 
 # Serve
-# CMD [ "yarn", "serve" ]
+CMD [ "yarn", "serve" ]

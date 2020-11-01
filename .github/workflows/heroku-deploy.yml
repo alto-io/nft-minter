@@ -19,6 +19,8 @@ jobs:
           envkey_GANACHE_MNEMONIC: ${{ secrets.GANACHE_MNEMONIC }}
           envkey_TESTNET_MNEMONIC: ${{ secrets.TESTNET_MNEMONIC }}
           envkey_INFURA_API_KEY: ${{ secrets.INFURA_API_KEY }}
+          envkey_PINATA_API_KEY: ${{ secrets.PINATA_API_KEY }}
+          envkey_PINATA_SECRET_API_KEY:  ${{ secrets.PINATA_SECRET_API_KEY }}
           file_name: .env
 
       - name: Log in Heroku
@@ -30,6 +32,8 @@ jobs:
           GANACHE_MNEMONIC: ${{ secrets.GANACHE_MNEMONIC }}
           TESTNET_MNEMONIC: ${{ secrets.TESTNET_MNEMONIC }}
           INFURA_API_KEY: ${{ secrets.INFURA_API_KEY }}
+          PINATA_API_KEY: ${{ secrets.PINATA_API_KEY }}
+          PINATA_SECRET_API_KEY:  ${{ secrets.PINATA_SECRET_API_KEY }}
 
       - name: Push to Heroku
         uses: sjdonado/heroku@master
@@ -40,6 +44,8 @@ jobs:
           GANACHE_MNEMONIC: ${{ secrets.GANACHE_MNEMONIC }}
           TESTNET_MNEMONIC: ${{ secrets.TESTNET_MNEMONIC }}
           INFURA_API_KEY: ${{ secrets.INFURA_API_KEY }}
+          PINATA_API_KEY: ${{ secrets.PINATA_API_KEY }}
+          PINATA_SECRET_API_KEY:  ${{ secrets.PINATA_SECRET_API_KEY }}
 
       - name: Release in Heroku
         uses: sjdonado/heroku@master
@@ -50,3 +56,6 @@ jobs:
           GANACHE_MNEMONIC: ${{ secrets.GANACHE_MNEMONIC }}
           TESTNET_MNEMONIC: ${{ secrets.TESTNET_MNEMONIC }}
           INFURA_API_KEY: ${{ secrets.INFURA_API_KEY }}
+          PINATA_API_KEY: ${{ secrets.PINATA_API_KEY }}
+          PINATA_SECRET_API_KEY:  ${{ secrets.PINATA_SECRET_API_KEY }}
+          
