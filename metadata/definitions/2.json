@@ -1,0 +1,35 @@
+{   
+    "id": "2",
+    "name": "Mage Wand",
+    "description": "For casting.",
+    "image": "Mage_Wand.png",
+    "attributes": [
+        {
+            "trait_type": "Base", 
+            "value": "Sword"
+        }, 
+        {
+            "trait_type": "Magic", 
+            "value": 3
+        }, 
+        {
+            "trait_type": "Cooldown", 
+            "value": 0.2
+        }, 
+        {
+            "display_type": "boost_number", 
+            "trait_type": "Enchantment", 
+            "value": 20
+        }, 
+        {
+            "display_type": "boost_percentage", 
+            "trait_type": "Chance to Hit", 
+            "value": 40
+        }, 
+        {
+            "display_type": "number", 
+            "trait_type": "Generation", 
+            "value": 1
+        }
+        ]
+}
