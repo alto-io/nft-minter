@@ -18,6 +18,7 @@
 .env.test.local
 .env.production.local
 packages/client/src/contracts
+packages/client/src/contracts.json
 packages/server/ipfs
 packages/server/orbitdb
 packages/server/report.*.json
@@ -28,3 +29,6 @@ yarn-error.log*
 .vscode/
 
 /temp_metadata
+/artifacts
+/cache
+/typechain
