@@ -29,6 +29,7 @@ yarn-error.log*
 .vscode/
 
 /temp_metadata
+/temp_metadata/README.md
 /artifacts
 /cache
 /typechain
