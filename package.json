@@ -47,14 +47,14 @@
     "chain:down": "docker-compose down -v",
     "test": "npm run chain:up && (sleep 1 && truffle test && npm run chain:down)",
     "test:rinkeby": "truffle test --network rinkeby",
-
     "hh:build": "npm run hh:clean && npm run hh:compile",
     "hh:clean": "hardhat clean",
     "hh:compile": "hardhat deploy --export packages/client/src/contracts.json",
     "hh:test": "hardhat test",
     "hh:coverage": "npm run build && hardhat coverage --temp artifacts --network coverage",
-    "hh:deploy": "hardhat run --network rinkeby scripts/deploy.ts",    
-    "hh:verify": "hardhat verify --network rinkeby"
+    "hh:deploy": "hardhat run --network rinkeby scripts/deploy.ts",
+    "hh:verify": "hardhat verify --network rinkeby",
+    "hh": "hardhat"
   },
   "dependencies": {
     "@openzeppelin/contracts": "2.5.0",
@@ -83,7 +83,6 @@
     "@nomiclabs/hardhat-waffle": "^2.0.0",
     "@typechain/ethers-v5": "^2.0.0",
     "@types/chai": "^4.2.14",
-    "@types/mocha": "^8.0.3",
     "@types/node": "^14.14.6",
     "chai": "^4.2.0",
     "ethereum-waffle": "^3.1.2",
@@ -96,8 +95,6 @@
     "ts-generator": "^0.1.1",
     "ts-node": "^9.0.0",
     "typechain": "^3.0.0",
-    "typescript": "^4.0.5"    
+    "typescript": "^4.0.5"
   }
-
-  
 }
