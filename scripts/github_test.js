@@ -18,11 +18,9 @@ const { Octokit } = require("@octokit/core");
 
 const octokit = new Octokit({ auth: GITHUB_GIST_KEY });
 
-let imageData = {}
 let contractUri = {}
 let gistId;
 let contractUriUrl;
-let gistUrl;
 
 const main = async () => {
   
@@ -36,18 +34,34 @@ const main = async () => {
   // check out the gist repository
   await checkoutGist();
 
-  // copy all files into the repo
-  await copyFilesToRepo();
+  // format and copy all files into the repo
+  await formatAndCopyFilesToRepo();
 
   // commit the source to github
   await commitGistRepo();
 
-  // await getImageData();
-  // saveImageData();
-
 }
 
-const changeImageUrls = async () => {
+const createContractUri = async () => {
+
+  contractUri = require(contracturi_file);
+
+  let files = {}
+  files[CONTRACT_IDENTIFIER] = {
+      content: JSON.stringify(contractUri, null, 2)
+  }
+
+  const response = await octokit.request("POST /gists", {
+    files
+  });  
+
+  gistId = response.data.id;
+}
+
+const checkoutGist = async () => {
+  shell.cd(temp_metadata_dir);
+  shell.exec(GIST_CHECKOUT_CMD + gistId + ".git")
+  shell.cd("..");
 
 }
 
@@ -58,7 +72,7 @@ const commitGistRepo = async () => {
   shell.exec('git push');
 }
 
-const copyFilesToRepo = async () => {
+const formatAndCopyFilesToRepo = async () => {
 
   const gist_dir = temp_metadata_dir + "/" + gistId;
 
@@ -90,7 +104,7 @@ const copyFilesToRepo = async () => {
     })
   }
 
-  // move images next
+  // copy images next
   {
     let {files} = await rfs.read(images_dir);
 
@@ -103,54 +117,36 @@ const copyFilesToRepo = async () => {
 
 }
 
-const checkoutGist = async () => {
-  shell.cd(temp_metadata_dir);
-  shell.exec(GIST_CHECKOUT_CMD + gistId + ".git")
-  shell.cd("..");
+main()
 
-}
+// let imageData = {}
+// let gistUrl;
 
-const createContractUri = async () => {
+// const saveImageData = async () => {
 
-  contractUri = require(contracturi_file);
+//   const response = await octokit.request("POST /gists", {
+//     files: imageData
+//     });
 
-  let files = {}
-  files[CONTRACT_IDENTIFIER] = {
-      content: JSON.stringify(contractUri, null, 2)
-  }
+// }
 
-  const response = await octokit.request("POST /gists", {
-    files
-  });  
+// const getImageData = async () => {
 
-  gistId = response.data.id;
-}
+//   const images_dir = './metadata/images';
 
-const saveImageData = async () => {
+//   let {files} = await rfs.read(images_dir);
 
-  const response = await octokit.request("POST /gists", {
-    files: imageData
-    });
+//   files.forEach( async (file) => {
+//     let filename = file.split("/").pop();
 
-}
-
-const getImageData = async () => {
-
-  const images_dir = './metadata/images';
-
-  let {files} = await rfs.read(images_dir);
-
-  files.forEach( async (file) => {
-    let filename = file.split("/").pop();
-
-    const data = fs.readFileSync(file);
+//     const data = fs.readFileSync(file);
     
-    imageData[filename] = 
-    {
-      content: data
-    }
+//     imageData[filename] = 
+//     {
+//       content: data
+//     }
 
-  })
+//   })
 
 
   // recursive.readdirr(images_dir, function (err, dirs, imageFiles) {
@@ -166,51 +162,48 @@ const getImageData = async () => {
   //   })
 
 
-  const content =
-  {
-    "id": "0",
-    "name": "Fighter Sword",
-    "description": "For poking.",
-    "image": "Fighter_Sword.png",
-    "attributes": [
-        {
-          "trait_type": "Base", 
-          "value": "Sword"
-        }, 
-        {
-          "trait_type": "Attack", 
-          "value": 10
-        }, 
-        {
-          "trait_type": "Speed", 
-          "value": 0.5
-        }, 
-        {
-          "display_type": "boost_number", 
-          "trait_type": "Enchantment", 
-          "value": 40
-        }, 
-        {
-          "display_type": "boost_percentage", 
-          "trait_type": "Chance to Hit", 
-          "value": 50
-        }, 
-        {
-          "display_type": "number", 
-          "trait_type": "Generation", 
-          "value": 1
-        }
-      ]
-  }
+  // const content =
+  // {
+  //   "id": "0",
+  //   "name": "Fighter Sword",
+  //   "description": "For poking.",
+  //   "image": "Fighter_Sword.png",
+  //   "attributes": [
+  //       {
+  //         "trait_type": "Base", 
+  //         "value": "Sword"
+  //       }, 
+  //       {
+  //         "trait_type": "Attack", 
+  //         "value": 10
+  //       }, 
+  //       {
+  //         "trait_type": "Speed", 
+  //         "value": 0.5
+  //       }, 
+  //       {
+  //         "display_type": "boost_number", 
+  //         "trait_type": "Enchantment", 
+  //         "value": 40
+  //       }, 
+  //       {
+  //         "display_type": "boost_percentage", 
+  //         "trait_type": "Chance to Hit", 
+  //         "value": 50
+  //       }, 
+  //       {
+  //         "display_type": "number", 
+  //         "trait_type": "Generation", 
+  //         "value": 1
+  //       }
+  //     ]
+  // }
 
-  let filez = {
-      0: {
-        content: JSON.stringify(content, null, 2)
-      },
-      1: {
-        content: JSON.stringify(content, null, 2)
-      }
-  }
-}
-
-main()
+  // let filez = {
+  //     0: {
+  //       content: JSON.stringify(content, null, 2)
+  //     },
+  //     1: {
+  //       content: JSON.stringify(content, null, 2)
+  //     }
+  // }
