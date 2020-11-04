@@ -6,7 +6,9 @@ const CONTRACT_IDENTIFIER = ".nft-minter"; // add a . in the beginning to make i
 const temp_metadata_dir = './temp_metadata';
 const contracturi_file = '../metadata/contracturi.json';
 
-const GIST_CHECKOUT_CMD = 'git clone https://gist.github.com/'
+
+const GIST_CHECKOUT_CMD = 'git clone ssh://git@gist.github.com/'
+const GIST_URL_PREFIX = "http://gist.github.com/raw/"
 
 const fs = require('fs');
 const rfs = require('recursive-fs');
@@ -19,6 +21,8 @@ const octokit = new Octokit({ auth: GITHUB_GIST_KEY });
 let imageData = {}
 let contractUri = {}
 let gistId;
+let contractUriUrl;
+let gistUrl;
 
 const main = async () => {
   
@@ -26,6 +30,8 @@ const main = async () => {
   await createContractUri();
   
   console.log("Contract URI saved: " + gistId);
+  contractUriUrl = GIST_URL_PREFIX + gistId;
+  console.log(contractUriUrl);
 
   // check out the gist repository
   await checkoutGist();
@@ -41,27 +47,60 @@ const main = async () => {
 
 }
 
+const changeImageUrls = async () => {
+
+}
+
 const commitGistRepo = async () => {
   shell.cd(temp_metadata_dir + "/" + gistId);
   shell.exec("git add .");
-  shell.exec("git commit -m 'add metadata'");
+  shell.exec('git commit -m "add metadata"');
   shell.exec('git push');
 }
 
 const copyFilesToRepo = async () => {
 
-  const definitions_dir = './metadata/definitions';
-  
   const gist_dir = temp_metadata_dir + "/" + gistId;
 
-  let {files} = await rfs.read(definitions_dir);
+  const definitions_dir = './metadata/definitions';
+  const images_dir = "./metadata/images";
 
-  files.forEach( async (file) => {
-    let filename = file.split("/").pop();
 
-    fs.copyFileSync(file, gist_dir + "/" + filename);
+  // move definitions first
+  {
+    let {files} = await rfs.read(definitions_dir);
 
-  })
+    files.forEach( async (file) => {
+
+      // filename on gist should just be a number, remove the .json extension
+      let filename = file.split("/").pop().split('.', 1)[0];
+      
+      // assumes the script is run from root
+      let metadata = require("." + file);  
+
+      // replace image url with link on ipfs gateway
+      metadata.image = contractUriUrl + "/" + metadata.image;
+      // use it also as external_url
+      metadata.external_url = metadata.image;
+  
+      const dest_file = gist_dir +"/" + filename;
+      const st = JSON.stringify(metadata, null, 2);
+
+      fs.writeFileSync(dest_file, st);      
+    })
+  }
+
+  // move images next
+  {
+    let {files} = await rfs.read(images_dir);
+
+    files.forEach( async (file) => {
+      let filename = file.split("/").pop();
+      fs.copyFileSync(file, gist_dir + "/" + filename);
+
+    })
+  }
+
 }
 
 const checkoutGist = async () => {

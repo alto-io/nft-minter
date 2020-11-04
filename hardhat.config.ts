@@ -1,11 +1,14 @@
 import { config as dotEnvConfig } from "dotenv";
 dotEnvConfig();
 
-import { HardhatUserConfig } from "hardhat/types";
+import { HardhatUserConfig } from 'hardhat/types';
 
 import "@nomiclabs/hardhat-waffle";
 import "@nomiclabs/hardhat-etherscan";
 import "hardhat-typechain";
+import 'hardhat-deploy';
+import 'hardhat-deploy-ethers';
+
 // TODO: reenable solidity-coverage when it works
 // import "solidity-coverage";
 
@@ -22,7 +25,11 @@ const config: HardhatUserConfig = {
   [
     { version: "0.5.12", settings: {} },
     { version: "0.6.8", settings: {} },
+    { version: "0.7.1", settings: {} },
   ],
+  },
+  namedAccounts: {
+    deployer: 0,
   },
   networks: {
     hardhat: {},
