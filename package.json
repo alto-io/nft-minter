@@ -19,7 +19,15 @@
     "node": ">=0.12"
   },
   "scripts": {
-    "demo": "yarn ipfs:deploy:erc1155 && yarn sol:deploy:rinkeby:reset && yarn mint:erc1155",
+    "metadata:deploy": "rimraf ./temp_metadata/* && node scripts/metadata_github.js",
+
+    "contract:deploy": "npm run hardhat:deploy:rinkeby",
+    "hardhat:deploy:rinkeby": "hardhat deploy --export packages/client/src/contracts.json --network rinkeby",
+
+    "contract:verify": "hardhat etherscan-verify --network rinkeby --license None",
+
+    "demo": "yarn metadata:deploy && yarn contract:deploy && yarn contract:verify && yarn:build && yarn:serve",
+    "demo-ipfs": "yarn ipfs:deploy:erc1155 && yarn sol:deploy:rinkeby:reset && yarn mint:erc1155",
     "ipfs:deploy:erc1155": "node scripts/erc1155_deploy_to_ipfs.js",
     "redeploy": "yarn clean:ipfs && yarn sol:deploy",
     "sol:compile": "truffle compile --config truffle-config.js",

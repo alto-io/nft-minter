@@ -34,3 +34,4 @@ temp_metadata/README.md
 /artifacts
 /cache
 /typechain
+/deployments
