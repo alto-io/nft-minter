@@ -19,12 +19,20 @@
     "node": ">=0.12"
   },
   "scripts": {
+    "externals": "newsh \"dotenv -e .env -e contracts/.env -- docker-compose up\"",
+    "externals:down": "docker-compose down -v",
+
+    "metadata:deploy:ipfs": "node scripts/erc1155_deploy_to_ipfs.js",
     "metadata:deploy": "rimraf ./temp_metadata/* && node scripts/metadata_github.js",
 
-    "contract:deploy": "npm run hardhat:deploy:rinkeby",
+    "contract:deploy": "npm run hardhat:deploy",
+
+    "hardhat:deploy": "hardhat deploy --export packages/client/src/contracts.json",
     "hardhat:deploy:rinkeby": "hardhat deploy --export packages/client/src/contracts.json --network rinkeby",
 
     "contract:verify": "hardhat etherscan-verify --network rinkeby --license None",
+
+    "contract:mint": "node scripts/mint.js",
 
     "demo": "yarn metadata:deploy && yarn contract:deploy && yarn contract:verify && yarn:build && yarn:serve",
     "demo-ipfs": "yarn ipfs:deploy:erc1155 && yarn sol:deploy:rinkeby:reset && yarn mint:erc1155",
@@ -92,9 +100,12 @@
     "@typechain/ethers-v5": "^2.0.0",
     "@types/chai": "^4.2.14",
     "@types/node": "^14.14.6",
+    "axios": "^0.19.2",
+    "base-path-converter": "^1.0.2",
     "chai": "^4.2.0",
     "ethereum-waffle": "^3.1.2",
     "ethers": "^5.0.19",
+    "form-data": "^3.0.0",
     "hardhat": "^2.0.1",
     "hardhat-deploy": "^0.7.0-beta.18",
     "hardhat-deploy-ethers": "^0.3.0-beta.5",
