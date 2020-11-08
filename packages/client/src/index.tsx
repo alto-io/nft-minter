@@ -4,6 +4,7 @@ import * as ReactDOM from "react-dom";
 import * as serviceWorker from './serviceWorker';
 
 import {App} from './app'
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 declare global {
   // tslint:disable-next-line
