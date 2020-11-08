@@ -4,7 +4,6 @@ import classnames from 'classnames';
 
 import * as contractRoot from '../contracts.json';
 
-
 function ContractExplorer() {
 
   const [activeTab, setActiveTab] = useState('');

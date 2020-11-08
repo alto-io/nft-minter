@@ -40,6 +40,21 @@ const main = async () => {
   // commit the source to github
   await commitGistRepo();
 
+  // save the deploy info
+  await saveConfigFile();
+
+}
+
+
+saveConfigFile = () => {
+    const config_file = "./src/packages/client/deployinfo.json";
+
+    const metadata_config = {
+        "gistId": gistId
+    }
+
+    const st = JSON.stringify(metadata_config, null, 2);
+    fs.writeFileSync(config_file, st);    
 }
 
 const createContractUri = async () => {
