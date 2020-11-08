@@ -4,6 +4,11 @@ import * as ReactDOM from "react-dom";
 import * as serviceWorker from './serviceWorker';
 
 import {App} from './app'
+
+import {AppProviders} from './context'
+
+import {loadDevTools} from './dev-tools/load'
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 declare global {
@@ -12,13 +17,16 @@ declare global {
     blockies: any;
   }
 }
-
-ReactDOM.render(
-  <>
-      <App />
-  </>,
-  document.getElementById("root"),
-);
+loadDevTools(() => {
+  ReactDOM.render(
+    <>
+        <AppProviders>
+          <App />
+        </AppProviders>
+    </>,
+    document.getElementById("root"),
+  )
+});
 
 
 // If you want your app to work offline and load faster, you can change

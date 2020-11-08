@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { TabContent, TabPane, Nav, NavItem, NavLink, Card, Button, CardTitle, CardText, Row, Col } from 'reactstrap';
 import classnames from 'classnames';
 
@@ -21,7 +21,7 @@ function ContractExplorer() {
       <Nav tabs>
         {
           Object.keys(contractRoot).map(network => (
-            <NavItem>
+            <NavItem key={network}>
               <NavLink
                 className={classnames({ active: activeTab === contractRoot[network].name })}
                 onClick={() => { toggle(contractRoot[network].name); }}>
@@ -37,10 +37,10 @@ function ContractExplorer() {
         <TabPane tabId={activeTab}>
           {
             Object.keys(contractRoot.contracts).map(contract => (
-              <>
+              <Fragment key={contract}>
                 <h5>{contract}</h5>
                 <h6>{contractRoot.contracts[contract].address}</h6>
-              </>
+              </Fragment>
               )
             )
           }
