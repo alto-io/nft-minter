@@ -26,6 +26,14 @@ jobs:
 
           file_name: .env
 
+      - name: Make react envfile
+        uses: SpicyPizza/create-envfile@v1
+        with:
+          envkey_REACT_APP_PREDEFINED_GITHUB_GIST_ID:  ${{ secrets.PREDEFINED_GITHUB_GIST_ID }}
+
+          file_name: packages/client/.env
+
+
       - name: Log in Heroku
         uses: sjdonado/heroku@master
         with:
