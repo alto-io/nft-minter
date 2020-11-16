@@ -1,0 +1,35 @@
+{
+    "id": "1",
+    "name": "Fighter Shield",
+    "description": "For blocking. ",
+    "image": "Fighter_Shield.png",
+    "attributes": [
+        {
+            "trait_type": "Base", 
+            "value": "Shield"
+        }, 
+        {
+            "trait_type": "Defense", 
+            "value": 10
+        }, 
+        {
+            "trait_type": "Armor", 
+            "value": 0.5
+        }, 
+        {
+            "display_type": "boost_number", 
+            "trait_type": "Enchantment", 
+            "value": 20
+        }, 
+        {
+            "display_type": "boost_percentage", 
+            "trait_type": "Chance to Block", 
+            "value": 30
+        }, 
+        {
+            "display_type": "number", 
+            "trait_type": "Generation", 
+            "value": 1
+        }
+        ]
+}

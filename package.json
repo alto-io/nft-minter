@@ -23,7 +23,7 @@
     "externals:down": "docker-compose down -v",
 
     "metadata:deploy:ipfs": "node scripts/erc1155_deploy_to_ipfs.js",
-    "metadata:deploy": "rimraf ./temp_metadata/* && node scripts/metadata_github.js",
+    "metadata:deploy:github": "rimraf ./temp_metadata/* && node scripts/metadata_github.js",
 
     "contract:deploy": "npm run hardhat:deploy",
 
@@ -51,7 +51,7 @@
     "start:common": "yarn workspace @nft-minter/common start",
     "start:client": "yarn workspace @nft-minter/client start",
     "start:server": "yarn workspace @nft-minter/server start",
-    "start": "yarn sol:compile && yarn build:common && concurrently --kill-others-on-fail \"yarn start:common\" \"yarn start:client\" \"yarn start:server\"",
+    "start": "concurrently --kill-others-on-fail \"yarn start:client\" \"yarn start:server\"",
     "build:common": "yarn workspace @nft-minter/common build",
     "build:client": "yarn workspace @nft-minter/client build",
     "build:server": "yarn workspace @nft-minter/server build",

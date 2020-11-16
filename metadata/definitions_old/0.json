@@ -1,0 +1,35 @@
+{
+    "id": "0",
+    "name": "Fighter Sword",
+    "description": "For poking.",
+    "image": "Fighter_Sword.png",
+    "attributes": [
+        {
+            "trait_type": "Base", 
+            "value": "Sword"
+        }, 
+        {
+            "trait_type": "Attack", 
+            "value": 10
+        }, 
+        {
+            "trait_type": "Speed", 
+            "value": 0.5
+        }, 
+        {
+            "display_type": "boost_number", 
+            "trait_type": "Enchantment", 
+            "value": 40
+        }, 
+        {
+            "display_type": "boost_percentage", 
+            "trait_type": "Chance to Hit", 
+            "value": 50
+        }, 
+        {
+            "display_type": "number", 
+            "trait_type": "Generation", 
+            "value": 1
+        }
+        ]
+}

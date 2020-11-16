@@ -1,7 +1,7 @@
 {
-    "description": "URI for the API for NFTs. TMI!",
-    "external_link": "https://github.com/polats/nft-minter",
+    "description": "Example Metadata for Web 3.0 Explorables",
+    "external_link": "https://observablehq.com/collection/@polats/web-3-0-explorables",
     "image": "https://kernel.community/assets/images/learning.png",
-    "name": "Tokens created by nft-minter",
-    "symbol": "NFTM"
+    "name": "Example NFTs for Web 3.0 Explorables",
+    "symbol": "W3ENFT"
 }

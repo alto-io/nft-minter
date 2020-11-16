@@ -14,7 +14,7 @@ function MetadataExplorer() {
             Gist Id: {deployInfo.gistId}
         </h5>
         <h5>
-            Gist URL: {gistMetadata.url}
+            Gist URL: {gistMetadata.url ? gistMetadata.url : "Loading..." }
         </h5>
 
     </>
