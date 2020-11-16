@@ -33,7 +33,7 @@ export async function mintNFT(tokenid, address) {
 
   const nftContract = new web3Instance.eth.Contract(CONTRACT_ABI, CONTRACT_ADDRESS, { gasLimit: "1000000" })
 
-  let result = await nftContract.methods.balanceOf(address, tokenid).call()
+   let result = await nftContract.methods.balanceOf(address, tokenid).call()
   // let result = await myCollectible.methods.create(OWNER_ADDRESS, INIT_SUPPLY, "", []).send({ from: OWNER_ADDRESS });
 
   return result;

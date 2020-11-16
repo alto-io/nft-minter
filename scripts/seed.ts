@@ -8,8 +8,16 @@ async function main() {
   const accounts = await ethers.provider.listAccounts();
   const OWNER_ADDRESS = accounts[0];
 
+  console.log("======================================")
+
+  console.log("Starting seeding initial NFTs...")
+  console.log("Owner :" + OWNER_ADDRESS)
+
+  console.log("======================================")
+
+
   for (let i = 0; i < 6; i++) {
-      const nftContract = await ethers.getContractAt('ERC1155Opensea', OWNER_ADDRESS);
+      const nftContract = await ethers.getContract('ERC1155Opensea', OWNER_ADDRESS);
       await waitFor(nftContract.create(OWNER_ADDRESS, 1, "", []));
     }
 }
