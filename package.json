@@ -21,19 +21,17 @@
   "scripts": {
     "externals": "newsh \"dotenv -e .env -e contracts/.env -- docker-compose up\"",
     "externals:down": "docker-compose down -v",
-
     "metadata:deploy:ipfs": "node scripts/erc1155_deploy_to_ipfs.js",
     "metadata:deploy:github": "rimraf ./temp_metadata/* && node scripts/metadata_github.js",
-
+    "contract:prepare": "npm run metadata:deploy:github && npm run contract:prepare:rinkeby",
+    "contract:prepare:localhost": "npm run contract:clean && npm run hardhat:deploy",
+    "contract:prepare:rinkeby": "npm run contract:clean && npm run hardhat:deploy:rinkeby",
+    "contract:clean": "hardhat clean && rimraf deployments/ && rimraf packages/client/src/contracts.json",
     "contract:deploy": "npm run hardhat:deploy",
-
     "hardhat:deploy": "hardhat deploy --export packages/client/src/contracts.json",
     "hardhat:deploy:rinkeby": "hardhat deploy --export packages/client/src/contracts.json --network rinkeby",
-
     "contract:verify": "hardhat etherscan-verify --network rinkeby --license None",
-
     "contract:mint": "node scripts/mint.js",
-
     "demo": "yarn metadata:deploy && yarn contract:deploy && yarn contract:verify && yarn:build && yarn:serve",
     "demo-ipfs": "yarn ipfs:deploy:erc1155 && yarn sol:deploy:rinkeby:reset && yarn mint:erc1155",
     "ipfs:deploy:erc1155": "node scripts/erc1155_deploy_to_ipfs.js",
@@ -56,7 +54,7 @@
     "build:client": "yarn workspace @nft-minter/client build",
     "build:server": "yarn workspace @nft-minter/server build",
     "build:move": "mv ./packages/client/build ./packages/server/build/public",
-    "build": "yarn build:client && yarn build:server && yarn build:move",
+    "build": "yarn contract:prepare && yarn build:client && yarn build:server && yarn build:move",
     "serve": "yarn workspace @nft-minter/server serve",
     "postinstall": "rimraf node_modules/@types/react-native",
     "chain:up": "newsh \"dotenv -e .env -- docker-compose up\"",
@@ -78,6 +76,7 @@
     "dotenv": "^8.2.0",
     "dotenv-cli": "^4.0.0",
     "multi-token-standard": "github:ProjectOpenSea/multi-token-standard",
+    "node-fetch": "^2.6.1",
     "openzeppelin-solidity": "2.1.3",
     "react-device-detect": "^1.13.1",
     "recursive-fs": "^2.1.0",

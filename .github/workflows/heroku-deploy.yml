@@ -21,6 +21,9 @@ jobs:
           envkey_INFURA_API_KEY: ${{ secrets.INFURA_API_KEY }}
           envkey_PINATA_API_KEY: ${{ secrets.PINATA_API_KEY }}
           envkey_PINATA_SECRET_API_KEY:  ${{ secrets.PINATA_SECRET_API_KEY }}
+          envkey_PREDEFINED_GITHUB_GIST_ID:  ${{ secrets.PREDEFINED_GITHUB_GIST_ID }}
+          envkey_METADATA_LOCATION:  ${{ secrets.METADATA_LOCATION }}
+
           file_name: .env
 
       - name: Log in Heroku
@@ -34,6 +37,7 @@ jobs:
           INFURA_API_KEY: ${{ secrets.INFURA_API_KEY }}
           PINATA_API_KEY: ${{ secrets.PINATA_API_KEY }}
           PINATA_SECRET_API_KEY:  ${{ secrets.PINATA_SECRET_API_KEY }}
+          METADATA_LOCATION: ${{ secrets.METADATA_LOCATION }}
 
       - name: Push to Heroku
         uses: sjdonado/heroku@master
@@ -46,6 +50,8 @@ jobs:
           INFURA_API_KEY: ${{ secrets.INFURA_API_KEY }}
           PINATA_API_KEY: ${{ secrets.PINATA_API_KEY }}
           PINATA_SECRET_API_KEY:  ${{ secrets.PINATA_SECRET_API_KEY }}
+          PREDEFINED_GITHUB_GIST_ID: ${{secrets.PREDEFINED_GITHUB_GIST_ID}}
+          METADATA_LOCATION: ${{ secrets.METADATA_LOCATION }}
 
       - name: Release in Heroku
         uses: sjdonado/heroku@master
@@ -58,4 +64,6 @@ jobs:
           INFURA_API_KEY: ${{ secrets.INFURA_API_KEY }}
           PINATA_API_KEY: ${{ secrets.PINATA_API_KEY }}
           PINATA_SECRET_API_KEY:  ${{ secrets.PINATA_SECRET_API_KEY }}
+          PREDEFINED_GITHUB_GIST_ID: ${{secrets.PREDEFINED_GITHUB_GIST_ID}}
+          METADATA_LOCATION: ${{ secrets.METADATA_LOCATION }}
           

@@ -6,6 +6,7 @@ require('dotenv').config()
 const RINKEBY = "4";
 const fs = require('fs');
 const rfs = require('recursive-fs');
+const fetch = require('node-fetch');
 
 const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
   const {deployments, getNamedAccounts} = hre;
@@ -14,12 +15,13 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
   const GITHUB = "github";
   const PINATA = "pinata";
   const metadata_location = process.env.METADATA_LOCATION; //  github, pinata
+  const PREDEFINED_GITHUB_GIST_ID = process.env.PREDEFINED_GITHUB_GIST_ID;
 
   const {deployer} = await getNamedAccounts();
   const network = await hre.getChainId();
  
   const TEMP_METADATA_DIR = './temp_metadata';
-  const GIST_URL_PREFIX = "http://gist.github.com/raw/"
+  const GIST_URL_PREFIX = "https://gist.github.com/raw/"
 
   let gistId;
   let contractUri;
@@ -38,22 +40,42 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
   // GIT - get the contract parameters
   switch (metadata_location) {
     case GITHUB:
+
+      let data; 
+      // use the predefined key if it exists
+      if (PREDEFINED_GITHUB_GIST_ID) {
+        console.log("using predefined github gist: " + PREDEFINED_GITHUB_GIST_ID);
+
+        gistId = PREDEFINED_GITHUB_GIST_ID;
+
+        // pull the data
+        let url = GIST_URL_PREFIX + PREDEFINED_GITHUB_GIST_ID;
+
+        await fetch(url)
+        .then((res:any) => res.json())
+        .then((json:any) => {
+          data = json;
+        });
+      }
+
+      else // load it from the temp metadata files
       {
         let {files, dirs} = await rfs.read(TEMP_METADATA_DIR);
       
         // on clean run, dirs[1] should contain the directory
         gistId = dirs[1].split(TEMP_METADATA_DIR).pop().split("/")[1];
         console.log("found metadata on github gist: " + gistId);
-    
-        // set the uris
-        contractUri = GIST_URL_PREFIX + gistId;
-        baseMetadataUri = contractUri + "/";
-    
+
         // files[0] should contain the contract uri file, read it and get the name and symbol
-        const data = JSON.parse(fs.readFileSync(files[0]).toString())
-        contractName = data.name;
-        contractSymbol = data.symbol;
+        data = JSON.parse(fs.readFileSync(files[0]).toString())
       }
+
+      // set the uri details
+      contractUri = GIST_URL_PREFIX + gistId;
+      baseMetadataUri = contractUri + "/";
+      contractName = data.name;
+      contractSymbol = data.symbol;
+
     break;
   case PINATA:
       {

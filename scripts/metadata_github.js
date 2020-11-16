@@ -1,8 +1,9 @@
 require("dotenv").config();
 
 const GITHUB_GIST_KEY = process.env.GITHUB_GIST_KEY
+const PREDEFINED_GITHUB_GIST_ID = process.env.PREDEFINED_GITHUB_GIST_ID
 
-const CONTRACT_IDENTIFIER = ".nft-minter"; // add a . in the beginning to make it appear first on the gist list
+const CONTRACT_IDENTIFIER = ".contracturi"; // add a . in the beginning to make it appear first on the gist list
 const temp_metadata_dir = './temp_metadata';
 const contracturi_file = '../metadata/contracturi.json';
 
@@ -24,24 +25,34 @@ let contractUriUrl;
 
 const main = async () => {
   
-  // upload the contract URI first so we have a gist id
-  await createContractUri();
-  
-  console.log("Contract URI saved: " + gistId);
-  contractUriUrl = GIST_URL_PREFIX + gistId;
-  console.log(contractUriUrl);
+  // if we have a predefined gist id, don't run the script
+  if (PREDEFINED_GITHUB_GIST_ID)
+  {
+    console.log("Predefined Gist Id found: " + PREDEFINED_GITHUB_GIST_ID + " , ending script.");
+  }
 
-  // check out the gist repository
-  await checkoutGist();
+  else 
+  {
 
-  // format and copy all files into the repo
-  await formatAndCopyFilesToRepo();
+    // upload the contract URI first so we have a gist id
+    await createContractUri();
+    
+    console.log("Contract URI saved: " + gistId);
+    contractUriUrl = GIST_URL_PREFIX + gistId;
+    console.log(contractUriUrl);
 
-  // commit the source to github
-  await commitGistRepo();
+    // check out the gist repository
+    await checkoutGist();
 
-  // save the deploy info
-  await saveConfigFile();
+    // format and copy all files into the repo
+    await formatAndCopyFilesToRepo();
+
+    // commit the source to github
+    await commitGistRepo();
+
+    // save the deploy info
+    await saveConfigFile();
+  }
 
 }
 

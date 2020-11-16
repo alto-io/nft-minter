@@ -38,8 +38,8 @@ function ContractExplorer() {
           {
             Object.keys(contractRoot.contracts).map(contract => (
               <Fragment key={contract}>
-                <h5>{contract}</h5>
-                <h6>{contractRoot.contracts[contract].address}</h6>
+                <h5>Contract Name: {contract}</h5>
+                <h6>Address: {contractRoot.contracts[contract].address}</h6>
               </Fragment>
               )
             )
