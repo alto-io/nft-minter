@@ -5,9 +5,12 @@
   "main": "./build/index.js",
   "dependencies": {
     "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "ethers": "^5.0.19",
     "express": "^4.17.1",
     "express-basic-auth": "^1.2.0",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "truffle-hdwallet-provider": "^1.0.17"
   },
   "devDependencies": {
     "@types/cors": "^2.8.6",
@@ -20,7 +23,7 @@
   "scripts": {
     "lint": "tslint -c tslint.json 'src/**/*.ts'",
     "lint:fix": "tslint --fix -c tslint.json 'src/**/*.ts'",
-    "start": "nodemon --watch './src/**/*.ts' --watch '../common/build/**/*.js' --exec ts-node ./src/index.ts",
+    "start": "nodemon --watch ./src/**/*.ts --exec ts-node ./src/index.ts",
     "build": "tsc -p tsconfig.json",
     "serve": "node build/index.js"
   }

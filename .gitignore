@@ -20,6 +20,7 @@
 packages/client/src/contracts
 packages/client/src/contracts.json
 packages/client/src/deployinfo.json
+packages/server/src/contracts.json
 packages/server/ipfs
 packages/server/orbitdb
 packages/server/report.*.json
