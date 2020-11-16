@@ -30,6 +30,7 @@ jobs:
         uses: SpicyPizza/create-envfile@v1
         with:
           envkey_REACT_APP_PREDEFINED_GITHUB_GIST_ID:  ${{ secrets.PREDEFINED_GITHUB_GIST_ID }}
+          envkey_REACT_APP_API_URL:  ${{ secrets.REACT_APP_API_URL }}
 
           file_name: packages/client/.env
 
