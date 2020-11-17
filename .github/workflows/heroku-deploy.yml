@@ -40,7 +40,7 @@ jobs:
           envkey_MNEMONIC:  ${{ secrets.TESTNET_MNEMONIC }}
           envkey_INFURA_API_KEY:  ${{ secrets.INFURA_API_KEY }}
 
-          file_name: packages/src/.env
+          file_name: packages/server/.env
 
       - name: Log in Heroku
         uses: sjdonado/heroku@master
