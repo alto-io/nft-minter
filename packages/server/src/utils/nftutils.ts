@@ -11,7 +11,7 @@ const MNEMONIC = process.env.MNEMONIC
 const NETWORK = CONTRACT_INFO.name;
 const CONTRACT_ABI = CONTRACT_INFO.contracts.ERC1155Opensea.abi;
 const CONTRACT_ADDRESS = CONTRACT_INFO.contracts.ERC1155Opensea.address;
-const OWNER_ADDRESS = ethers.Wallet.fromMnemonic(MNEMONIC);
+const OWNER_ADDRESS = ethers.Wallet.fromMnemonic(MNEMONIC).address;
 
 
 let RPC_URL;
@@ -33,8 +33,26 @@ export async function mintNFT(tokenid, address) {
 
   const nftContract = new web3Instance.eth.Contract(CONTRACT_ABI, CONTRACT_ADDRESS, { gasLimit: "1000000" })
 
-   let result = await nftContract.methods.balanceOf(address, tokenid).call()
-  // let result = await myCollectible.methods.create(OWNER_ADDRESS, INIT_SUPPLY, "", []).send({ from: OWNER_ADDRESS });
+  let result;
+
+  try {
+    console.log("Minting Token " + tokenid + " to " + address + "...");
+    let mintResult = await nftContract.methods.mint(address, tokenid, 1, []).send({ from: OWNER_ADDRESS });
+    let newBalance = await nftContract.methods.balanceOf(address, tokenid).call();
+ 
+    result = {
+      transactionHash: mintResult.transactionHash,
+      newBalance
+    }
+
+    console.log(result);
+
+
+  } catch (e)
+  {
+    console.log(e);
+    result = e.toString();
+  }
 
   return result;
  

@@ -1,4 +1,4 @@
-import {getUnnamedAccounts, ethers} from 'hardhat';
+import {ethers} from 'hardhat';
 
 function waitFor<T>(p: Promise<{wait: () => Promise<T>}>): Promise<T> {
   return p.then((tx) => tx.wait());
