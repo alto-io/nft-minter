@@ -19,6 +19,7 @@ async function main() {
   for (let i = 0; i < 6; i++) {
       const nftContract = await ethers.getContract('ERC1155Opensea', OWNER_ADDRESS);
       await waitFor(nftContract.create(OWNER_ADDRESS, 1, "", []));
+      console.log((i + 1) + " of 5 to " + OWNER_ADDRESS);
     }
 }
 
