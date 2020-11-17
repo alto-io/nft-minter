@@ -11,10 +11,11 @@
     "noImplicitAny": false,
     "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
+    "resolveJsonModule": true,    
     "sourceMap": false
   },
   "include": [
-    "src"
+    "src", "src/contracts.json"
   ],
   "exclude": [
     "node_modules",
