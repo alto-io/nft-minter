@@ -191,6 +191,32 @@ const handleCheckBalance = async (event) => {
   setInProgress(false);
 }
 
+const handleGetMetadata = async (event) => {
+  event.preventDefault(); 
+  setInProgress(true);
+  const form = event.target;
+  const data = new FormData(form);
+  let parsedData:any = {};
+  for (const [name,value] of data) {
+    parsedData[name] = value;
+  }
+
+  setLogText("Getting metadata of token id " + parsedData["metadata"] + "...");
+  setReceiptLink(null);
+
+  try {
+
+    let result = await readOnlyContract.uri(parsedData["metadata"]);
+    let metadata = await (await fetch(result)).json();
+
+    setLogText("uri: " + result + "--- " + "metadata: " + JSON.stringify(metadata));
+
+  } catch (e) {}
+
+  setInProgress(false);
+}
+
+
   return (
     <>
       <Nav tabs>
@@ -326,6 +352,30 @@ const handleCheckBalance = async (event) => {
                     </FormGroup>
                   </Form>
                 </Card>
+
+                <Card>
+                  <h5>Get Token Metadata</h5>
+                  <Form onSubmit={handleGetMetadata}>
+                    <FormGroup>
+                    <Row>
+                    <Col>
+                      <Label for="metadataId">Token Id</Label>
+                    </Col>
+                    <Col>
+                      <Input
+                      name="metadata"
+                      id="metadataId"
+                      placeholder="0"
+                    />
+                    </Col>
+                    <Col><Button disabled={inProgress}>Get Metadata</Button></Col>
+                    </Row>
+                    </FormGroup>
+                  </Form>
+                </Card>
+
+
+
 
                 <Card>
                   <h6>Log:</h6>
