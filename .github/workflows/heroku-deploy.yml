@@ -16,8 +16,7 @@ jobs:
         uses: SpicyPizza/create-envfile@v1
         with:
           envkey_HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-          envkey_GANACHE_MNEMONIC: ${{ secrets.GANACHE_MNEMONIC }}
-          envkey_TESTNET_MNEMONIC: ${{ secrets.TESTNET_MNEMONIC }}
+          envkey_MNEMONIC: ${{ secrets.MNEMONIC }}
           envkey_INFURA_API_KEY: ${{ secrets.INFURA_API_KEY }}
           envkey_PINATA_API_KEY: ${{ secrets.PINATA_API_KEY }}
           envkey_PINATA_SECRET_API_KEY:  ${{ secrets.PINATA_SECRET_API_KEY }}
@@ -31,13 +30,14 @@ jobs:
         with:
           envkey_REACT_APP_PREDEFINED_GITHUB_GIST_ID:  ${{ secrets.PREDEFINED_GITHUB_GIST_ID }}
           envkey_REACT_APP_API_URL:  ${{ secrets.REACT_APP_API_URL }}
+          envkey_REACT_APP_INFURA_API_KEY:  ${{ secrets.REACT_APP_INFURA_API_KEY }}
 
           file_name: packages/client/.env
 
       - name: Make server envfile
         uses: SpicyPizza/create-envfile@v1
         with:
-          envkey_MNEMONIC:  ${{ secrets.TESTNET_MNEMONIC }}
+          envkey_MNEMONIC:  ${{ secrets.MNEMONIC }}
           envkey_INFURA_API_KEY:  ${{ secrets.INFURA_API_KEY }}
 
           file_name: packages/server/.env
@@ -48,8 +48,7 @@ jobs:
           args: container:login
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-          GANACHE_MNEMONIC: ${{ secrets.GANACHE_MNEMONIC }}
-          TESTNET_MNEMONIC: ${{ secrets.TESTNET_MNEMONIC }}
+          MNEMONIC: ${{ secrets.MNEMONIC }}
           INFURA_API_KEY: ${{ secrets.INFURA_API_KEY }}
           PINATA_API_KEY: ${{ secrets.PINATA_API_KEY }}
           PINATA_SECRET_API_KEY:  ${{ secrets.PINATA_SECRET_API_KEY }}
@@ -61,12 +60,10 @@ jobs:
           args: container:push -a nft-minter web 
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-          GANACHE_MNEMONIC: ${{ secrets.GANACHE_MNEMONIC }}
-          TESTNET_MNEMONIC: ${{ secrets.TESTNET_MNEMONIC }}
+          MNEMONIC: ${{ secrets.MNEMONIC }}
           INFURA_API_KEY: ${{ secrets.INFURA_API_KEY }}
           PINATA_API_KEY: ${{ secrets.PINATA_API_KEY }}
           PINATA_SECRET_API_KEY:  ${{ secrets.PINATA_SECRET_API_KEY }}
-          PREDEFINED_GITHUB_GIST_ID: ${{secrets.PREDEFINED_GITHUB_GIST_ID}}
           METADATA_LOCATION: ${{ secrets.METADATA_LOCATION }}
 
       - name: Release in Heroku
@@ -75,11 +72,9 @@ jobs:
           args: container:release -a nft-minter web
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-          GANACHE_MNEMONIC: ${{ secrets.GANACHE_MNEMONIC }}
-          TESTNET_MNEMONIC: ${{ secrets.TESTNET_MNEMONIC }}
+          MNEMONIC: ${{ secrets.MNEMONIC }}
           INFURA_API_KEY: ${{ secrets.INFURA_API_KEY }}
           PINATA_API_KEY: ${{ secrets.PINATA_API_KEY }}
           PINATA_SECRET_API_KEY:  ${{ secrets.PINATA_SECRET_API_KEY }}
-          PREDEFINED_GITHUB_GIST_ID: ${{secrets.PREDEFINED_GITHUB_GIST_ID}}
           METADATA_LOCATION: ${{ secrets.METADATA_LOCATION }}
           

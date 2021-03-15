@@ -26,8 +26,10 @@
     "build:client": "yarn workspace @nft-minter/client build",
     "build:server": "yarn workspace @nft-minter/server build",
     "build:move": "fse move --all --overwrite ./packages/client/build ./packages/server/build/public",
-    
+
     "build": "yarn build:client && yarn build:server && yarn build:move",
+    "heroku:build": "yarn metadata:deploy:ipfs && yarn contract:deploy:rinkeby && yarn build",
+
     "serve": "yarn workspace @nft-minter/server serve",
     "externals": "newsh \"dotenv -e .env -e contracts/.env -- docker-compose up\"",
     "externals:down": "docker-compose down -v",
