@@ -2,122 +2,54 @@
 {
     "contractUri":
     {
-            "description": "URI for the API for NFTs. TMI!",
-            "external_link": "https://github.com/polats/nft-minter",
-            "image": "https://kernel.community/assets/images/learning.png",
-            "name": "Tokens created by nft-minter",
-            "symbol": "NFTM"
+      "description": "URI for the API for NFTs. TMI!",
+      "external_link": "https://github.com/alto-io/nft-minter",
+      "image": "smile37.png",
+      "name": "Tokens created by nft-minter",
+      "symbol": "NFTM"
     },
     "metadata": [
         {
-            "id": "1",
-            "name": "Fighter Sword",
-            "description": "For poking.",
-            "image": "Fighter_Sword.png",
-            "attributes": [
-                {
-                  "trait_type": "Base", 
-                  "value": "Sword"
-                }, 
-                {
-                  "trait_type": "Attack", 
-                  "value": 10
-                }, 
-                {
-                  "trait_type": "Speed", 
-                  "value": 0.5
-                }, 
-                {
-                  "display_type": "boost_number", 
-                  "trait_type": "Enchantment", 
-                  "value": 40
-                }, 
-                {
-                  "display_type": "boost_percentage", 
-                  "trait_type": "Chance to Hit", 
-                  "value": 50
-                }, 
-                {
-                  "display_type": "number", 
-                  "trait_type": "Generation", 
-                  "value": 1
-                }
-              ]
+          "id": "0",
+          "name": "smile37",
+          "icon": "🤖",
+          "description": "Just an emoji: 🤖",
+          "image": "smile37.png"
+        },      
+        {
+          "id": "1",
+          "name": "smile32",
+          "icon": "🤡",
+          "description": "Just an emoji: 🤡",
+          "image": "smile32.png"
         },
         {
-            "id": "2",
-            "name": "Fighter Shield",
-            "description": "For blocking. ",
-            "image": "Fighter_Shield.png",
-            "attributes": [
-                {
-                  "trait_type": "Base", 
-                  "value": "Shield"
-                }, 
-                {
-                  "trait_type": "Defense", 
-                  "value": 10
-                }, 
-                {
-                  "trait_type": "Armor", 
-                  "value": 0.5
-                }, 
-                {
-                  "display_type": "boost_number", 
-                  "trait_type": "Enchantment", 
-                  "value": 20
-                }, 
-                {
-                  "display_type": "boost_percentage", 
-                  "trait_type": "Chance to Block", 
-                  "value": 30
-                }, 
-                {
-                  "display_type": "number", 
-                  "trait_type": "Generation", 
-                  "value": 1
-                }
-              ]
+          "id": "2",
+          "name": "smile33",
+          "icon": "💩",
+          "description": "Just an emoji: 💩",
+          "image": "smile33.png"
         },
-        {   
-            "id": "3",
-            "name": "Mage Wand",
-            "description": "For casting.",
-            "image": "Mage_Wand.png",
-            "attributes": [
-                {
-                  "trait_type": "Base", 
-                  "value": "Sword"
-                }, 
-                {
-                  "trait_type": "Magic", 
-                  "value": 3
-                }, 
-                {
-                  "trait_type": "Cooldown", 
-                  "value": 0.2
-                }, 
-                {
-                  "display_type": "boost_number", 
-                  "trait_type": "Enchantment", 
-                  "value": 20
-                }, 
-                {
-                  "display_type": "boost_percentage", 
-                  "trait_type": "Chance to Hit", 
-                  "value": 40
-                }, 
-                {
-                  "display_type": "number", 
-                  "trait_type": "Generation", 
-                  "value": 1
-                }
-              ]
+        {
+          "id": "3",
+          "name": "smile34",
+          "icon": "👻",
+          "description": "Just an emoji: 👻",
+          "image": "smile34.png"
+        },                        
+        {
+          "id": "4",
+          "name": "smile38",
+          "icon": "🎃",
+          "description": "Just an emoji: 🎃",
+          "image": "smile38.png"
+        },
+        {
+          "id": "5",
+          "name": "smile36",
+          "icon": "👽",
+          "description": "Just an emoji: 👽",
+          "image": "smile36.png"
         }
-
-        
     ]    
-
-   
-
 }
